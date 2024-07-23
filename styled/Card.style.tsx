@@ -1,15 +1,29 @@
 import styled from 'styled-components/native';
 
-import { Colors } from '../constants/theme';
+import { THEME } from '../constants';
 
-export const VerticalList = styled.ScrollView`
+const HorizontalList = styled.ScrollView`
     flex: 1;
-    margin-top: 1rem;
+    margin-top: ${THEME.Sizes.large};
+    padding: 0 ${THEME.Sizes.medium};
 `;
 
-export const CardItem = styled.View`
-    height: 100;
-    background-color: ${Colors.lightBlue};
-    border-radius: 1rem;
-    padding: 1rem;
+const CardItem = styled.TouchableOpacity`
+    height: 100%;
+    width: 200px;
+    align-items: center;
+    background-color: ${THEME.Colors.lightBlue};
+    border-radius: ${THEME.Sizes.large};
+    padding: ${THEME.Sizes.large};
 `;
+
+const CardImage = styled.Image`
+    height: 100px;
+    width: 100%;
+`;
+
+const CardText = styled.Text`
+    margin-top: ${THEME.Sizes.medium};
+`;
+
+export { HorizontalList, CardItem, CardImage, CardText };

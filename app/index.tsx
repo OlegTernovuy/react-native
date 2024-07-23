@@ -1,63 +1,58 @@
-import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
-import { TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 
 import {
     Container,
-    IconButton,
-    SearchButton,
-    SearchContainer,
-    SearchInput,
-    SearchWrapper,
+    HeaderContainer,
     WelcomeBlock,
     WelcomeDesc,
     WelcomeTitle,
 } from '../styled/index.style';
-import Card from '../components/Card';
+import { Card, OccupList, Search } from '../components';
+import { HorizontalList } from '../styled/Card.style';
+import useFetch from '../hooks/useFetch';
 
 export default function Index() {
+    const { data, isLoading } = useFetch();
+
     return (
         <Container>
             <Stack.Screen
                 options={{
                     headerShadowVisible: false,
                     headerLeft: () => (
-                        <IconButton onPress={() => true}>
+                        <TouchableOpacity onPress={() => true}>
                             <MaterialCommunityIcons
                                 name="menu"
                                 size={32}
                                 color="black"
                             />
-                        </IconButton>
+                        </TouchableOpacity>
                     ),
                     headerRight: () => (
-                        <IconButton onPress={() => true}>
+                        <TouchableOpacity onPress={() => true}>
                             <MaterialCommunityIcons
                                 name="account"
                                 size={32}
                                 color="black"
                             />
-                        </IconButton>
+                        </TouchableOpacity>
                     ),
                     headerTitle: '',
                 }}
             />
-            <View>
+            <HeaderContainer>
                 <WelcomeBlock>
                     <WelcomeTitle>Welcome my friend</WelcomeTitle>
                     <WelcomeDesc>Here you can find something</WelcomeDesc>
                 </WelcomeBlock>
-            </View>
-            <SearchContainer>
-                <SearchWrapper>
-                    <SearchInput />
-                </SearchWrapper>
-                <TouchableOpacity></TouchableOpacity>
-                <SearchButton>
-                    <Feather name="search" size={24} color="black" />
-                </SearchButton>
-            </SearchContainer>
-            <Card />
+                <Search />
+                <OccupList />
+            </HeaderContainer>
+            <HorizontalList>
+                {isLoading ? <ActivityIndicator /> : <Card data={data} />}
+            </HorizontalList>
         </Container>
     );
 }
