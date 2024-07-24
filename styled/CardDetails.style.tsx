@@ -65,5 +65,5 @@ export {
     CardDetailsAboutDesc,
     CardApplyBlock,
     CardApplyButton,
-    CardApplyButtonText,
+    CardApplyButtonText
 };

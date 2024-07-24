@@ -56,6 +56,10 @@ const SearchButton = styled.TouchableOpacity`
     align-items: center;
 `;
 
+const ErrorText = styled.Text`
+    margin: 0 auto;
+`;
+
 export {
     Container,
     HeaderContainer,
@@ -66,4 +70,5 @@ export {
     SearchWrapper,
     SearchInput,
     SearchButton,
+    ErrorText
 };

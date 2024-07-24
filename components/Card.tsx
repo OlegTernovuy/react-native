@@ -1,46 +1,58 @@
-import { FlatList } from 'react-native';
+import { ActivityIndicator, FlatList } from 'react-native';
+import React, { memo, useCallback } from 'react';
 import { router } from 'expo-router';
 
 import { CardImage, CardItem, CardText } from '../styled/Card.style';
-import { IProducts } from '../hooks/useFetch';
+import useFetch, { IProducts } from '../hooks/useFetch';
 
-interface IPropsData {
-    data: IProducts[];
-}
+const Card = () => {
+    const { data, isLoading } = useFetch();
 
-const Card = ({ data }: IPropsData) => {
-    const handleCardDetails = (id: string) => {
+    const handleCardDetails = useCallback((id: string) => {
         router.push(`/details/${id}`);
-    };
+    }, []);
 
-    // const renderItem = (item: IProducts) => {
-    //     <CardItem key={item.id} onPress={() => handleCardDetails(item.id)}>
-    //         <CardImage source={{ uri: item.avatar }} />
-    //         <CardText>{item.name}</CardText>
-    //     </CardItem>;
-    // };
+    const keyExtractor = useCallback((item: IProducts) => item.id, []);
 
-    // const memoizedValue = useMemo(() => renderItem, [data]);
+    const renderItem = useCallback(({ item }: { item: IProducts }) => (
+        <MemoizedCardItem item={item} handleCardDetails={handleCardDetails} />
+    ), [handleCardDetails]);
 
     return (
-        <FlatList
-            data={data}
-            // renderItem={memoizedValue}
-            renderItem={({ item }) => (
-                <CardItem
-                    key={item.id}
-                    onPress={() => handleCardDetails(item.id)}
-                >
-                    <CardImage source={{ uri: item.avatar }} />
-                    <CardText>{item.name}</CardText>
-                </CardItem>
+        <>
+            {isLoading ? (
+                <ActivityIndicator />
+            ) : (
+                <FlatList
+                    removeClippedSubviews={true}
+                    data={data}
+                    renderItem={renderItem}
+                    maxToRenderPerBatch={10}
+                    initialNumToRender={5}
+                    keyExtractor={keyExtractor}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ columnGap: 16 }}
+                    horizontal
+                />
             )}
-            keyExtractor={(item) => item.id}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ columnGap: 16 }}
-            horizontal
-        />
+        </>
     );
 };
 
-export default Card;
+interface CardItemProps {
+    item: IProducts;
+    handleCardDetails: (id: string) => void;
+}
+
+const CardItemComponent = ({ item, handleCardDetails }: CardItemProps) => {
+    return (
+        <CardItem onPress={() => handleCardDetails(item.id)}>
+            <CardImage source={{ uri: item.avatar }} />
+            <CardText>{item.name}</CardText>
+        </CardItem>
+    );
+};
+
+const MemoizedCardItem = memo(CardItemComponent);
+
+export default memo(Card);
