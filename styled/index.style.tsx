@@ -1,57 +1,69 @@
 import { styled } from 'styled-components/native';
 
-import { Colors } from '../constants/theme';
+import { THEME } from '../constants';
 
-export const IconButton = styled.TouchableOpacity`
-    padding: 0 0.5rem;
-`;
-
-export const Container = styled.SafeAreaView`
+const Container = styled.SafeAreaView`
     flex: 1;
-    background-color: ${Colors.lightWhite};
-    padding: 0 0.5rem;
+    background-color: ${THEME.Colors.lightWhite};
+    padding: 0 ${THEME.Sizes.medium};
 `;
 
-export const WelcomeBlock = styled.View`
+const HeaderContainer = styled.View`
+    padding: 0 ${THEME.Sizes.medium};
+`;
+
+const WelcomeBlock = styled.View`
     width: 100%;
 `;
 
-export const WelcomeTitle = styled.Text`
-    font-size: 20px;
-    color: ${Colors.primary};
+const WelcomeTitle = styled.Text`
+    font-size: ${THEME.Sizes.xLarge};
+    color: ${THEME.Colors.primary};
 `;
 
-export const WelcomeDesc = styled.Text`
-    font-size: 24px;
-    color: ${Colors.secondary};
-    margin-top: 0.25rem;
+const WelcomeDesc = styled.Text`
+    font-size: ${THEME.Sizes.xxLarge};
+    color: ${THEME.Colors.secondary};
+    margin-top: ${THEME.Sizes.small};
 `;
 
-export const SearchContainer = styled.View`
+const SearchContainer = styled.View`
     flex-direction: row;
     height: 50px;
-    margin-top: 0.5rem;
+    margin-top: ${THEME.Sizes.medium};
 `;
 
-export const SearchWrapper = styled.View`
+const SearchWrapper = styled.View`
     flex: 1;
-    background-color: ${Colors.lightGray};
-    margin-right: 0.25rem;
-    border-radius: 0.5rem;
+    background-color: ${THEME.Colors.lightGray};
+    margin-right: ${THEME.Sizes.small};
+    border-radius: ${THEME.Sizes.large};
     height: 100%;
 `;
 
-export const SearchInput = styled.TextInput`
+const SearchInput = styled.TextInput`
     height: 100%;
     width: 100%;
-    padding: 0.25rem;
+    padding: ${THEME.Sizes.small};
 `;
 
-export const SearchButton = styled.TouchableOpacity`
+const SearchButton = styled.TouchableOpacity`
     width: 50px;
     height: 100%;
-    border-radius: 16px;
-    background-color: ${Colors.lightBlue};
+    border-radius: ${THEME.Sizes.large};
+    background-color: ${THEME.Colors.lightBlue};
     justify-content: center;
     align-items: center;
 `;
+
+export {
+    Container,
+    HeaderContainer,
+    WelcomeBlock,
+    WelcomeTitle,
+    WelcomeDesc,
+    SearchContainer,
+    SearchWrapper,
+    SearchInput,
+    SearchButton,
+};

@@ -1,23 +1,45 @@
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
+import { router } from 'expo-router';
 
-import { CardItem, VerticalList } from '../styled/Card.style';
-import { DATA } from '../data/index';
+import { CardImage, CardItem, CardText } from '../styled/Card.style';
+import { IProducts } from '../hooks/useFetch';
 
-const Card = () => {
+interface IPropsData {
+    data: IProducts[];
+}
+
+const Card = ({ data }: IPropsData) => {
+    const handleCardDetails = (id: string) => {
+        router.push(`/details/${id}`);
+    };
+
+    // const renderItem = (item: IProducts) => {
+    //     <CardItem key={item.id} onPress={() => handleCardDetails(item.id)}>
+    //         <CardImage source={{ uri: item.avatar }} />
+    //         <CardText>{item.name}</CardText>
+    //     </CardItem>;
+    // };
+
+    // const memoizedValue = useMemo(() => renderItem, [data]);
+
     return (
-        <VerticalList showsVerticalScrollIndicator={false}>
-            <FlatList
-                data={DATA}
-                renderItem={({ item }) => (
-                    <CardItem key={item.id}>
-                        <Text>{item.name}</Text>
-                    </CardItem>
-                )}
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={{ columnGap: 16 }}
-                horizontal
-            />
-        </VerticalList>
+        <FlatList
+            data={data}
+            // renderItem={memoizedValue}
+            renderItem={({ item }) => (
+                <CardItem
+                    key={item.id}
+                    onPress={() => handleCardDetails(item.id)}
+                >
+                    <CardImage source={{ uri: item.avatar }} />
+                    <CardText>{item.name}</CardText>
+                </CardItem>
+            )}
+            keyExtractor={(item) => item.id}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ columnGap: 16 }}
+            horizontal
+        />
     );
 };
 
