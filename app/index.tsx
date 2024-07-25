@@ -1,5 +1,5 @@
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
 import { Stack } from 'expo-router';
 
 import {
@@ -11,11 +11,8 @@ import {
 } from '../styled/index.style';
 import { Card, OccupList, Search } from '../components';
 import { HorizontalList } from '../styled/Card.style';
-import useFetch from '../hooks/useFetch';
 
 export default function Index() {
-    const { data, isLoading } = useFetch();
-
     return (
         <Container>
             <Stack.Screen
@@ -51,7 +48,7 @@ export default function Index() {
                 <OccupList />
             </HeaderContainer>
             <HorizontalList>
-                {isLoading ? <ActivityIndicator /> : <Card data={data} />}
+                <Card />
             </HorizontalList>
         </Container>
     );

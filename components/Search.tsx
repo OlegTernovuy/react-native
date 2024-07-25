@@ -23,6 +23,7 @@ const Search = () => {
             <SearchButton
                 onPress={() => {
                     router.push(`/search/${searchTerm}`);
+                    setSearchTerm('');
                 }}
             >
                 <Feather name="search" size={24} color="black" />

@@ -8,10 +8,13 @@ import { OCCUPATION_TYPE } from '../constants';
 const OccupList = () => {
     const [activeOccup, setActiveOccup] = useState('');
 
+    const keyExtractor = (item: string) => item;
+
     return (
         <OccupWrapper>
             <FlatList
                 data={OCCUPATION_TYPE}
+                keyExtractor={keyExtractor}
                 renderItem={({ item }) => (
                     <OccupButton
                         onPress={() => {
@@ -24,6 +27,9 @@ const OccupList = () => {
                         <Text>{item}</Text>
                     </OccupButton>
                 )}
+                removeClippedSubviews={true}
+                maxToRenderPerBatch={1}
+                initialNumToRender={1}
                 contentContainerStyle={{ columnGap: 8 }}
                 horizontal
             />

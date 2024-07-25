@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 axios.defaults.baseURL =
     'https://64f6f6249d7754084952ddc5.mockapi.io/employees';
@@ -15,6 +15,7 @@ export interface IProducts {
 const useFetch = (query?: {}) => {
     const [data, setData] = useState<IProducts[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const options = {
         method: 'GET',
@@ -28,8 +29,10 @@ const useFetch = (query?: {}) => {
 
             setData(res.data);
             setIsLoading(false);
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            if (err instanceof AxiosError && err.response) {
+                setError(err.response.data);
+            }
         } finally {
             setIsLoading(false);
         }
@@ -39,7 +42,7 @@ const useFetch = (query?: {}) => {
         fetchData();
     }, []);
 
-    return { data, isLoading };
+    return { data, isLoading, error };
 };
 
 export default useFetch;

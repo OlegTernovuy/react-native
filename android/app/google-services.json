@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "660848670429",
+    "project_id": "reactnativenotification-e6b4a",
+    "storage_bucket": "reactnativenotification-e6b4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660848670429:android:45f156bccdcd2bbfa80d34",
+        "android_client_info": {
+          "package_name": "com.ternovyi.reactnativeapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmrn1apZftnuqxPRlYQRbxhkl4PsbKOYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
