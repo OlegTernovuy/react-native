@@ -28,7 +28,6 @@ const useFetch = (query?: {}) => {
             const res = await axios.request(options);
 
             setData(res.data);
-            setIsLoading(false);
         } catch (err) {
             if (err instanceof AxiosError && err.response) {
                 setError(err.response.data);

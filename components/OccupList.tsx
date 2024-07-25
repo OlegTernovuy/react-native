@@ -28,10 +28,11 @@ const OccupList = () => {
                     </OccupButton>
                 )}
                 removeClippedSubviews={true}
-                maxToRenderPerBatch={1}
-                initialNumToRender={1}
+                maxToRenderPerBatch={10}
+                initialNumToRender={5}
                 contentContainerStyle={{ columnGap: 8 }}
                 horizontal
+                testID="occup-flat-list"
             />
         </OccupWrapper>
     );

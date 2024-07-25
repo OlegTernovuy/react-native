@@ -14,14 +14,20 @@ const Card = () => {
 
     const keyExtractor = useCallback((item: IProducts) => item.id, []);
 
-    const renderItem = useCallback(({ item }: { item: IProducts }) => (
-        <MemoizedCardItem item={item} handleCardDetails={handleCardDetails} />
-    ), [handleCardDetails]);
+    const renderItem = useCallback(
+        ({ item }: { item: IProducts }) => (
+            <MemoizedCardItem
+                item={item}
+                handleCardDetails={handleCardDetails}
+            />
+        ),
+        [handleCardDetails]
+    );
 
     return (
         <>
             {isLoading ? (
-                <ActivityIndicator />
+                <ActivityIndicator testID="activity-indicator" />
             ) : (
                 <FlatList
                     removeClippedSubviews={true}

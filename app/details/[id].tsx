@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-import useFetch from '@/hooks/useFetch';
-import { Container } from '@/styled/index.style';
+import useFetch from '../../hooks/useFetch';
+import { Container } from '../../styled/index.style';
 import {
     CardApplyBlock,
     CardApplyButton,
@@ -34,7 +34,10 @@ const CardDetails = () => {
                 options={{
                     headerShadowVisible: false,
                     headerLeft: () => (
-                        <TouchableOpacity onPress={() => router.back()}>
+                        <TouchableOpacity
+                            testID="back-button"
+                            onPress={() => router.back()}
+                        >
                             <AntDesign name="back" size={32} color="black" />
                         </TouchableOpacity>
                     ),
@@ -43,7 +46,7 @@ const CardDetails = () => {
             />
             <View>
                 {isLoading ? (
-                    <ActivityIndicator />
+                    <ActivityIndicator testID="activity-indicator" />
                 ) : (
                     <>
                         {cardDetails !== undefined && (
@@ -70,6 +73,7 @@ const CardDetails = () => {
             </View>
             <CardApplyBlock>
                 <CardApplyButton
+                    testID="save-emp-button"
                     onPress={() =>
                         Linking.openURL('https://www.linkedin.com/feed/')
                     }
