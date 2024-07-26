@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card component should matches snapshot when data is loaded 1`] = `
+<ActivityIndicator
+  testID="activity-indicator"
+/>
+`;
+
+exports[`Card component should matches snapshot when data is loading 1`] = `
+<ActivityIndicator
+  testID="activity-indicator"
+/>
+`;

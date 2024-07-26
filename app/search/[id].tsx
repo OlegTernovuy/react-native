@@ -19,7 +19,7 @@ import {
     UserDetailsTitle,
 } from '../../styled/SearchPage.style';
 
-const Search = () => {
+const SearchPage = () => {
     const params = useGlobalSearchParams();
     let query = {};
     if (typeof params.id === 'string' && OCCUPATION_TYPE.includes(params.id)) {
@@ -40,7 +40,10 @@ const Search = () => {
                 options={{
                     headerShadowVisible: false,
                     headerLeft: () => (
-                        <TouchableOpacity onPress={() => router.back()}>
+                        <TouchableOpacity
+                            testID="back-button"
+                            onPress={() => router.back()}
+                        >
                             <AntDesign name="back" size={32} color="black" />
                         </TouchableOpacity>
                     ),
@@ -48,7 +51,7 @@ const Search = () => {
                 }}
             />
             {isLoading ? (
-                <ActivityIndicator />
+                <ActivityIndicator testID="activity-indicator" />
             ) : error ? (
                 <ErrorText>{error}</ErrorText>
             ) : (
@@ -66,6 +69,7 @@ const Search = () => {
                                     </UserDetailsTitle>
                                 </UserDetailsBlock>
                                 <DetailsButton
+                                    testID="card-details"
                                     onPress={() => handleUserDetails(item.id)}
                                 >
                                     <MaterialCommunityIcons
@@ -86,4 +90,4 @@ const Search = () => {
     );
 };
 
-export default Search;
+export default SearchPage;

@@ -25,6 +25,7 @@ const Search = () => {
                     router.push(`/search/${searchTerm}`);
                     setSearchTerm('');
                 }}
+                testID="search-btn"
             >
                 <Feather name="search" size={24} color="black" />
             </SearchButton>
