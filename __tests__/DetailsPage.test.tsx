@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import axios from 'axios';
 
 import CardDetails from '../app/details/[id]';
+
 import { mockData } from '../constants/temp';
 
 const mock = new MockAdapter(axios);
@@ -14,6 +15,14 @@ jest.mock('expo-router', () => ({
     useGlobalSearchParams: jest.fn().mockReturnValue({ id: '1' }),
     router: {
         back: jest.fn(),
+    },
+    Stack: {
+        Screen: ({ children, options }: any) => (
+            <>
+                {options?.headerLeft && options.headerLeft()}
+                {children}
+            </>
+        ),
     },
 }));
 
@@ -30,7 +39,7 @@ describe('CardDetaild component', () => {
         });
     });
 
-    it('should show loader indicator when data is fetching', async () => {
+    it('should show loader indicator when data is fetching', () => {
         mock.onGet('', { params: { id: '1' } }).reply(200, mockData);
         const { getByTestId } = render(<CardDetails />);
         expect(getByTestId('activity-indicator')).toBeTruthy();
@@ -44,14 +53,14 @@ describe('CardDetaild component', () => {
         });
     });
 
-    it('should call router.back on button click', async () => {
+    it('should call router.back on button click', () => {
         mock.onGet('', { params: { id: '1' } }).reply(200, mockData);
         const { getByTestId } = render(<CardDetails />);
         fireEvent.press(getByTestId('back-button'));
-        expect(router.back).toHaveBeenCalled();
+        expect(router.back).toHaveBeenCalledTimes(1);
     });
 
-    it('should call open LinkedIn url on button click save employees', async () => {
+    it('should call open LinkedIn url on button click save employees', () => {
         mock.onGet('', { params: { id: '1' } }).reply(200, mockData);
         const openURL = jest.spyOn(Linking, 'openURL');
         const { getByTestId } = render(<CardDetails />);

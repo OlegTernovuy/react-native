@@ -4,8 +4,9 @@ import MockAdapter from 'axios-mock-adapter';
 import { router } from 'expo-router';
 import axios from 'axios';
 
-import { mockData } from '../constants/temp';
 import { Card } from '../components';
+
+import { mockData } from '../constants/temp';
 
 const mock = new MockAdapter(axios);
 

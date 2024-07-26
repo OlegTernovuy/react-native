@@ -4,8 +4,9 @@ import MockAdapter from 'axios-mock-adapter';
 import { router } from 'expo-router';
 import axios from 'axios';
 
-import { mockData } from '../constants/temp';
 import SearchPage from '../app/search/[id]';
+
+import { mockData } from '../constants/temp';
 
 const mock = new MockAdapter(axios);
 
@@ -13,6 +14,15 @@ jest.mock('expo-router', () => ({
     useGlobalSearchParams: jest.fn().mockReturnValue({ id: 'Raq' }),
     router: {
         push: jest.fn(),
+        back: jest.fn(),
+    },
+    Stack: {
+        Screen: ({ children, options }: any) => (
+            <>
+                {options?.headerLeft && options.headerLeft()}
+                {children}
+            </>
+        ),
     },
 }));
 
@@ -29,7 +39,7 @@ describe('CardDetaild component', () => {
         });
     });
 
-    it('should show loader indicator when data is fetching', async () => {
+    it('should show loader indicator when data is fetching', () => {
         mock.onGet('', { params: { name: 'Raq' } }).reply(200, mockData);
         const { getByTestId } = render(<SearchPage />);
         expect(getByTestId('activity-indicator')).toBeTruthy();
@@ -49,16 +59,14 @@ describe('CardDetaild component', () => {
         mock.onGet('', { params: { name: 'Raq' } }).reply(200, mockData);
         const { getByTestId } = render(<SearchPage />);
         const card = await waitFor(() => getByTestId('card-details'));
-
         fireEvent.press(card);
-
         expect(router.push).toHaveBeenCalledWith(`/details/1`);
     });
 
-    it('should call router.back on button click', async () => {
+    it('should call router.back on button click', () => {
         mock.onGet('', { params: { name: 'Raq' } }).reply(200, mockData);
         const { getByTestId } = render(<SearchPage />);
         fireEvent.press(getByTestId('back-button'));
-        expect(router.back).toHaveBeenCalled();
+        expect(router.back).toHaveBeenCalledTimes(1);
     });
 });
